@@ -1,0 +1,54 @@
+﻿@{
+	ViewData["Title"] = "Acceso";
+}
+@if (TempData["ErrorMessage"] != null)
+{
+	<div class="alert alert-danger">
+		@TempData["ErrorMessage"]
+	</div>
+}
+
+<!-- Resto del contenido de la página principal -->
+@model ConversionWebMVC.Models.UsuarioModel
+
+<div class="text-center">
+	<!DOCTYPE html>
+	<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="slide navbar style.css">
+	</head>
+	<body>
+		<div class="main" style="">
+			<input type="checkbox" id="chk" aria-hidden="true">
+
+			<div class="signup">
+				<form method="post" asp-action="ProcesarFormulario">
+					<label for="chk" aria-hidden="true">Darse de alta</label>
+					<input type="email" name="email" placeholder="Correo electrónico" required>
+					<input type="password" name="password" placeholder="Contraseña" required>
+					<input type="date" name="fechaNacimiento" placeholder="Fecha de nacimiento" required>
+					<input type="text" name="nombre_pais" placeholder="País" required>
+
+					<button onclick="Privacy.cshtml">¡Registrate!</button>
+				</form>
+			</div>
+
+			<div class="login">
+
+				<form method="post" asp-action="VerificarUsuario">
+
+					<label for="chk" aria-hidden="true">Logearse</label>
+
+					<input type="email" name="email" placeholder="Correo electrónico" required value="@ViewBag.usuario">
+					<input type="password" name="password" placeholder="Contraseña" required value="@ViewBag.pass">
+
+					<input style="height:35px;" type="submit" value="Login" class="btn btn-primary" />
+				</form>
+			</div>
+		</div>
+	</body>
+</html>
+</div>
+
+
+

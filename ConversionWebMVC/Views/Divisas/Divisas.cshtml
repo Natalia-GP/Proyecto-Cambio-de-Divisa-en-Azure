@@ -1,0 +1,119 @@
+﻿@{
+    ViewData["Title"] = "Conversor";
+}
+
+@model ConversionWebMVC.Models.DivisasModel
+
+<div class="text-center">
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="slide navbar style.css">
+    </head>
+<body>
+        
+
+<div style="margin-top:-160px;">
+
+    <h1 class="display-4" style="display: inline;"> <a>Conversion</a></h1>
+
+    &nbsp;&nbsp;&nbsp;<h2 style="display: inline;"> <a class="adicional">Divisas</a> </h2>
+            &nbsp;&nbsp;&nbsp;<h2 style="display: inline;"> <a class="adicional" asp-action="IrAHistorico">Historico</a> </h2>
+</div>
+
+<div class="text-center" style="height:100%; padding:5px; margin-top:20px; ">
+
+    <form method="post" id="conversionForm">
+
+        <div>
+             <div class="inline-container">
+                 <label for="Divisa1">Divisa 1:</label>
+             </div>
+             <div class="inline-container">
+                 <select id="Divisa1" name="ConversionModelMVC.Divisa1">
+                     <option value="USD">EE.UU. Dólar|USD</option>
+                     <option value="EUR">Euro|EUR</option>
+                     <option value="GBP">Libra esterlina|GBP</option>
+                     <option value="JPY">Japón Yen|JPY</option>
+                     <option value="RUB">Rusia Rublo|RUB</option>
+                     <option value="MAD">Marruecos Dirham|MAD</option>
+                     <option value="CHF">Suiza Franco|CHF</option>
+                     <option value="AUD">Australia Dólar|AUD</option>
+                 </select>
+             </div>
+        </div>
+        <div>
+             <div class="inline-container">
+                 <label for="cantidad">Cantidad:</label>
+             </div>
+             <div class="inline-container">
+                 <input type="text" id="cantidad" name="Cantidad" style="width:50px;">
+                 <input type="text" id="emailLogin" name="EmailLogin" hidden value="@ViewBag.email" style="width:50px;">
+             </div>
+        </div>
+
+        <div>
+            <div class="inline-container">
+                <label for="Divisa2">Divisa 2:</label>
+            </div>
+            <div class="inline-container">
+                <select id="Divisa2" name="ConversionModelMVC.Divisa2">
+                    <option value="USD">EE.UU. Dólar|USD</option>
+                    <option value="EUR">Euro|EUR</option>
+                    <option value="GBP">Libra esterlina|GBP</option>
+                    <option value="JPY">Japón Yen|JPY</option>
+                    <option value="RUB">Rusia Rublo|RUB</option>
+                    <option value="MAD">Marruecos Dirham|MAD</option>
+                    <option value="CHF">Suiza Franco|CHF</option>
+                    <option value="AUD">Australia Dólar|AUD</option>
+                </select>
+            </div>
+
+                    <br>
+            <div id="resultado"></div>
+                    <br>
+                    <br>
+        </div>
+        <button type="button" onclick="convertir()">Convertir</button>
+    </form>
+</div>
+
+    </body>
+</html>
+</div>
+
+<script>
+    function convertir() {
+        var formData = new FormData(document.getElementById('conversionForm'));
+        var divisa1 = formData.get('ConversionModelMVC.Divisa1');
+        var divisa2 = formData.get('ConversionModelMVC.Divisa2');
+        var cantidad = formData.get('Cantidad');
+        var emailLogin = formData.get('EmailLogin');
+
+        console.log('Divisa 1:', divisa1);
+        console.log('Divisa 2:', divisa2);
+        console.log('Cantidad:', cantidad);
+        console.log('EmailLogin:', emailLogin);
+
+
+        fetch('ConvertirMoneda', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ Divisa1: divisa1, Divisa2: divisa2, Cantidad: cantidad, EmailLogin: emailLogin })
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                if (data && data.res !== undefined) {
+                    document.getElementById('resultado').textContent = `El resultado de la conversión es: ${data.res.result}`;
+                } else {
+                    console.error('La respuesta del servidor no contiene un campo "valor" válido.');
+                }
+            });
+
+        return false; // Evita el envío del formulario tradicional
+    }
+</script>
+
