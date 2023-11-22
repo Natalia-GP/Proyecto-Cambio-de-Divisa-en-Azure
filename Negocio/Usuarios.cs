@@ -1,4 +1,4 @@
-﻿namespace Negocio
+﻿namespace Negocio 
 {
     public class Usuarios
     {
