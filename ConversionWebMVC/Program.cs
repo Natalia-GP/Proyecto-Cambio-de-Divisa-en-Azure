@@ -15,7 +15,7 @@ builder.Services.AddScoped<IServicioAcceso, ServicioAcceso>();
 
 //Servicio de BBDD
 builder.Services.AddDbContext<Contexto>(configuracion => configuracion.UseSqlServer(
-    builder.Configuration["ConnectionStrings:conversorCadena"]));
+    builder.Configuration["ConnectionStrings:ConexionAzure"]));
 
 var app = builder.Build();
 
