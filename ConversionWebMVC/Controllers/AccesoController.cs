@@ -42,10 +42,7 @@ namespace ConversionWebMVC.Controllers
             if (total)
 			{
                 //TempData["email"] = modelo.UsuarioModel.email;
-                if(0==1){
 
-
-                }
 
                 
                 
