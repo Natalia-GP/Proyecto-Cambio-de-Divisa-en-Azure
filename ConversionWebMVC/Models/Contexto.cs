@@ -14,5 +14,6 @@ namespace ConversionWebMVC.Models
 
         public DbSet<DivisasModel> Divisa { get; set; }
 
+        public DbSet<HistoricoModel> Historico { get; set; }
     }
 }
