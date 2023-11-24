@@ -33,9 +33,9 @@ namespace Negocio
 
                     jsonResponse = jsonResponse.Substring(posicionInicial, posicionFinal- posicionInicial);
                     jsonResponse = jsonResponse.Replace(".", ",");
-                    Datos.Consultas.AgregarRegistroHistorico(cantidad.ToString() + " " + Divisa1, 
-                                                            (double.Parse(jsonResponse) * cantidad).ToString() + " " + Divisa2, 
-                                                            usuario);
+                    //Datos.Consultas.AgregarRegistroHistorico(cantidad.ToString() + " " + Divisa1, 
+                                                            //(double.Parse(jsonResponse) * cantidad).ToString() + " " + Divisa2, 
+                                                            //usuario);
                     return double.Parse(jsonResponse) * cantidad;
                 }
                 else
