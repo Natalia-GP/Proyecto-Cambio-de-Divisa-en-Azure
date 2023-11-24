@@ -1,4 +1,5 @@
-﻿using ConversionWebMVC.Servicios;
+﻿using ConversionWebMVC.Models;
+using ConversionWebMVC.Servicios;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ConversionWebMVC.Controllers
@@ -6,10 +7,12 @@ namespace ConversionWebMVC.Controllers
     public class AccesoController : Controller
     {
         private readonly IServicioAcceso servicioAcceso;
+        private readonly Contexto contexto;
 
-        public AccesoController(IServicioAcceso servicioAcceso) 
+        public AccesoController(IServicioAcceso servicioAcceso, Contexto contexto) 
 		{
             this.servicioAcceso = servicioAcceso;
+            this.contexto = contexto;
         }
         public IActionResult Acceso()
         {
@@ -21,26 +24,42 @@ namespace ConversionWebMVC.Controllers
 
 		public IActionResult ProcesarFormulario(ConversionWebMVC.Models.UsuarioModel modelo)
 		{
-			Datos.Consultas.AgregarUsuario(modelo.email, modelo.password, modelo.fechaNacimiento, modelo.nombre_pais);
+			//Datos.Consultas.AgregarUsuario(modelo.email, modelo.password, modelo.fechaNacimiento, modelo.nombre_pais);
 			//TempData["email"] = modelo.UsuarioModel.email;
+
+			contexto.Usuario.Add(modelo);
+            contexto.SaveChanges();
             return RedirectToAction("Divisas", "Divisas", modelo);
         }
 
         public IActionResult VerificarUsuario(ConversionWebMVC.Models.UsuarioModel modelo)
 		{
 
-			bool usuarioValido = Datos.Consultas.VerificarUsuario(modelo.email, modelo.password);
+            //bool usuarioValido = Datos.Consultas.VerificarUsuario(modelo.email, modelo.password);
 
-			if (usuarioValido)
+            bool total = contexto.Usuario.Any(t => t.email == modelo.email && t.password == modelo.password);
+
+            if (total)
 			{
-				//TempData["email"] = modelo.UsuarioModel.email;
-				return RedirectToAction("Divisas", "Divisas", modelo);
+                //TempData["email"] = modelo.UsuarioModel.email;
+
+
+                
+                
+                return RedirectToAction("Divisas", "Divisas", modelo);
+
+
+
+
             }
 			else
 			{
 				TempData["ErrorMessage"] = "Usuario no válido. Por favor, verifique sus credenciales.";
-				return RedirectToAction("Registro");
+				return RedirectToAction("Acceso");
 			}
 		}
+
+
+
 	}
 }

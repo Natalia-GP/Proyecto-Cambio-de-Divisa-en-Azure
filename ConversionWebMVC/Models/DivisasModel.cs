@@ -6,7 +6,7 @@ namespace ConversionWebMVC.Models
 {
 	public class DivisasModel
     {
-
+       public int id { get; set; }
         public string acronimo { get; set; }
         public string nombre_divisa { get; set; }
         public int Valor { get; set; }
