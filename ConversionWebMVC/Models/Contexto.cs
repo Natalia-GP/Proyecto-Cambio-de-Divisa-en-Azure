@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace ConversionWebMVC.Models
 {
-    public class Contexto : DbContext
+    public class Contexto : IdentityDbContext<UsuarioModel>
     {
         public Contexto(DbContextOptions<Contexto> opciones)
             : base(opciones)

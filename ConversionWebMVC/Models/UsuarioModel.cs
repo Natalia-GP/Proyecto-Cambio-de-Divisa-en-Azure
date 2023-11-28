@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
+
 
 namespace ConversionWebMVC.Models
 {
-	public class UsuarioModel
+	public class UsuarioModel: IdentityUser
 	{
         public int id { get; set; }        [DataType(DataType.EmailAddress)]
         public string email { get; set; }
