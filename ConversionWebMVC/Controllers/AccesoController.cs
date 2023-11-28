@@ -24,8 +24,8 @@ namespace ConversionWebMVC.Controllers
 
 		public IActionResult ProcesarFormulario(ConversionWebMVC.Models.UsuarioModel modelo)
 		{
-			//Datos.Consultas.AgregarUsuario(modelo.email, modelo.password, modelo.fechaNacimiento, modelo.nombre_pais);
-			//TempData["email"] = modelo.UsuarioModel.email;
+			
+			TempData["email"] = modelo.email;
 
 			contexto.Usuario.Add(modelo);
             contexto.SaveChanges();
@@ -41,7 +41,7 @@ namespace ConversionWebMVC.Controllers
 
             if (total)
 			{
-                //TempData["email"] = modelo.UsuarioModel.email;
+                TempData["email"] = modelo.email;
 
 
                 

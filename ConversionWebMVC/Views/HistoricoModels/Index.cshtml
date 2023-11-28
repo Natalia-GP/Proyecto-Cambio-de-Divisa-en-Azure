@@ -3,12 +3,11 @@
 @{
     ViewData["Title"] = "Index";
 }
+@{
+    string userEmail = TempData["email"] as string; 
+}
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -28,7 +27,8 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model.Where(h => h.NombreUsuario == userEmail))
+        {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.tiempo)
@@ -43,11 +43,12 @@
                 @Html.DisplayFor(modelItem => item.NombreUsuario)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+
             </td>
         </tr>
 }
+
+        <a asp-action="VolverAHome">Volver</a>
+       
     </tbody>
 </table>

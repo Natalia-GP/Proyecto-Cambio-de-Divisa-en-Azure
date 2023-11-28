@@ -25,7 +25,7 @@ namespace Negocio
 
                     string jsonResponse = await response.Content.ReadAsStringAsync();
 
-                    //Json.JsonCurrencyLayer json = JsonConvert.DeserializeObject<Json.JsonCurrencyLayer>(jsonResponse);                                       
+                    Json.JsonCurrencyLayer json = JsonConvert.DeserializeObject<Json.JsonCurrencyLayer>(jsonResponse);                                       
 
 
                     posicionInicial = jsonResponse.IndexOf($"{Divisa2}{Divisa1}") + 8;

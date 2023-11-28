@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ConversionWebMVC.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20231122200453_INCIO")]
-    partial class INCIO
+    [Migration("20231127175140_inicio")]
+    partial class inicio
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

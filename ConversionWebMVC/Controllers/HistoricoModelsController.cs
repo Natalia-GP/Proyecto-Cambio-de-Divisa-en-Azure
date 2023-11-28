@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ConversionWebMVC.Models;
+using ConversionWebMVC.ViewModels;
 
 namespace ConversionWebMVC.Controllers
 {
@@ -18,13 +19,27 @@ namespace ConversionWebMVC.Controllers
             _context = context;
         }
 
-        // GET: HistoricoModels
-        public async Task<IActionResult> Index()
+
+        public async Task<IActionResult> Index(string email)
         {
-              return _context.Historico != null ? 
-                          View(await _context.Historico.ToListAsync()) :
-                          Problem("Entity set 'Contexto.Historico'  is null.");
+            if (_context.Historico == null)
+            {
+                return Problem("Entity set 'Contexto.Historico' is null.");
+            }
+
+            IQueryable<HistoricoModel> historicoQuery = _context.Historico;
+
+            if (!string.IsNullOrEmpty(email))
+            {
+                historicoQuery = historicoQuery.Where(h => h.NombreUsuario == email);
+            }
+
+            var historicoList = await historicoQuery.ToListAsync();
+
+            return View(historicoList);
         }
+
+
 
         // GET: HistoricoModels/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -158,5 +173,11 @@ namespace ConversionWebMVC.Controllers
         {
           return (_context.Historico?.Any(e => e.id == id)).GetValueOrDefault();
         }
+
+        public IActionResult VolverAHome()
+        {
+            return RedirectToAction("Divisas", "Divisas");
+        }
+
     }
 }

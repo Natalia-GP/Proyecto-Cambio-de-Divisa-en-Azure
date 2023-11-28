@@ -5,9 +5,12 @@ namespace ConversionWebMVC.ViewModels
 {
     public class UsuarioDivisasViewModel
     {
-        public UsuarioModel UsuarioModel { get; set; }
-        public DivisasModel DivisasModel { get; set; }
 
 
+        public string divisa1 { get; set; }
+        public string divisa2 { get; set; }
+        public double valorInicial { get; set; }
+        public double valorFinal { get; set; }
+        public string email { get; set; }
     }
 }
