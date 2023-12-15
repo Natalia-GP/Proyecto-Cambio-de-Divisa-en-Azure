@@ -1,6 +1,7 @@
 ﻿using ConversionWebMVC.Models;
 using ConversionWebMVC.Servicios;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ConversionWebMVC.Controllers
 {
@@ -23,9 +24,10 @@ namespace ConversionWebMVC.Controllers
         }
 
 		public IActionResult ProcesarFormulario(ConversionWebMVC.Models.UsuarioModel modelo)
-		{
-			
-			TempData["email"] = modelo.email;
+        {
+            string? pruebaconexion = contexto.Database.GetConnectionString();
+
+            TempData["email"] = modelo.email;
 
 			contexto.Usuario.Add(modelo);
             contexto.SaveChanges();
